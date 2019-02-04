@@ -120,9 +120,14 @@ class AbstractPostType {
 	}
 
 	protected static function get_model_class() {
-		$parts = explode( '\\', get_called_class() );
+		$parts   = explode( '\\', get_called_class() );
+		$search  = 'PostType';
+		$replace = 'Model';
+		$parts   = array_map( function ( $part ) use ( $search, $replace ) {
+			return $part == $search ? $replace : $part;
+		}, $parts );
 
-		$model = 'DeliciousBrains\\WPPostTypes\\Model\\' . array_pop( $parts );
+		$model = implode( '\\', $parts );
 
 		if ( class_exists( $model ) ) {
 			return $model;
