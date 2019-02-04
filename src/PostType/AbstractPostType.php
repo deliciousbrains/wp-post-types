@@ -11,6 +11,7 @@ class AbstractPostType {
 	protected $icon;
 	protected $menu_position = 25;
 	protected $supports = array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' );
+	protected $block_editor = false;
 
 	public function __construct( $args = array() ) {
 		$this->type   = self::get_post_type();
@@ -30,6 +31,15 @@ class AbstractPostType {
 		}, 100 );
 		add_action( 'template_redirect', array( $this, 'redirect_post_type_pages' ) );
 		add_filter( 'wpseo_sitemap_exclude_post_type', array( $this, 'exclude_post_type_from_site_map' ), 10, 2 );
+		if ( ! $this->block_editor ) {
+			add_filter( 'use_block_editor_for_post_type', function ( $use_block_editor, $post_type ) {
+				if ( $this->type === $post_type ) {
+					return false;
+				}
+
+				return $use_block_editor;
+			}, 10, 2 );
+		}
 	}
 
 	public static function get_post_type( $prefix = 'dbi_' ) {
@@ -63,6 +73,7 @@ class AbstractPostType {
 			'publicly_queryable' => true,
 			'show_ui'            => true,
 			'show_in_menu'       => true,
+			'show_in_rest'       => true,
 			'query_var'          => true,
 			'rewrite'            => array( 'slug' => self::get_post_type( '' ) ),
 			'capability_type'    => 'post',
