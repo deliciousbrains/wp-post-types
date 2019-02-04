@@ -1,0 +1,17 @@
+{
+  "name": "deliciousbrains/wp-post-types",
+  "description": "WordPress library for registering, reading and writing custom post types.",
+  "license": "GPLv2",
+  "authors": [
+    {
+      "name": "Delicious Brains",
+      "email": "nom@deliciousbrains.com",
+      "homepage": "https://deliciousbrains.com/"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "DeliciousBrains\\WPPostTypes\\": "src/"
+    }
+  }
+}
