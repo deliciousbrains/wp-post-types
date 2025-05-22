@@ -1,7 +1,7 @@
 {
   "name": "deliciousbrains/wp-post-types",
   "description": "WordPress library for registering, reading and writing custom post types.",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Delicious Brains",
